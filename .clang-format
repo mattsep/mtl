@@ -89,7 +89,7 @@ IncludeCategories:
 IncludeIsMainRegex: '([-_](test|bench))?$'
 
 IndentCaseLabels: false
-IndentPPDirectives: BeforeHash
+IndentPPDirectives: AfterHash
 IndentWidth: 2
 IndentWrappedFunctionNames: false
 
