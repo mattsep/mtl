@@ -86,7 +86,7 @@ IncludeCategories:
       Priority: 4
     - Regex: '^".*"'        # project headers
       Priority: 5
-IncludeIsMainRegex: '([-_](test|bench))?$'
+IncludeIsMainRegex: '([-_](test|bench|impl))?$'
 
 IndentCaseLabels: false
 IndentPPDirectives: AfterHash

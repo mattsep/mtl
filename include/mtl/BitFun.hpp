@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cstring>
+
 #include "mtl/Common.hpp"
 #include "mtl/Macros.hpp"
 

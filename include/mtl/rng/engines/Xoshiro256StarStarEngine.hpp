@@ -6,62 +6,36 @@
 
 #pragma once
 
-#include "mtl/BitFun.hpp"
 #include "mtl/Common.hpp"
-#include "mtl/rng/SplitMix64.hpp"
+
 
 namespace mtl::rng {
 
-class Xoshiro256Engine {
+class Xoshiro256StarStarEngine {
 public:
   using result_type = u64;
 
-  Xoshiro256Engine(result_type s) noexcept { seed(s); }
+  Xoshiro256StarStarEngine(u64 s) noexcept { seed(s); }
 
-  inline void seed(result_type s) noexcept
-  {
-    assert(s > 0);
-    init_state(s);
-  }
+  void seed(u64 s) noexcept;
 
-  result_type operator()() noexcept
-  {
-    const auto out = 9 * rotl(5 * state_[1], 7);
-    const auto tmp = state_[1] << 17;
+  u64 next() noexcept;
 
-    state_[2] ^= state_[0];
-    state_[3] ^= state_[1];
-    state_[1] ^= state_[2];
-    state_[0] ^= state_[3];
+  void discard(size_t n) noexcept;
 
-    state_[2] ^= tmp;
-    state_[3] = rotl(state_[3], 45);
+  u64 operator()() noexcept { return next(); }
 
-    return out;
-  }
+  static constexpr u64 min() { return std::numeric_limits<u64>::min(); }
 
-  void discard(size_t n) noexcept
-  {
-    while (n != 0) {
-      (*this)();
-      --n;
-    }
-  }
-
-  constexpr result_type min() noexcept { return std::numeric_limits<result_type>::min(); }
-  constexpr result_type max() noexcept { return std::numeric_limits<result_type>::max(); }
+  static constexpr u64 max() { return std::numeric_limits<u64>::max(); }
 
 private:
-  result_type state_[4];
-
-  void init_state(result_type seed) noexcept
-  {
-    auto generator = SplitMix64Engine(seed);
-    state_[0] = generator();
-    state_[1] = generator();
-    state_[2] = generator();
-    state_[3] = generator();
-  }
-};  // namespace mtl::random
+  u64 state_[4];
+};
 
 }  // namespace mtl::rng
+
+
+#if defined(MTL_CONFIG_HEADER_ONLY)
+#  include "mtl/rng/engines/Xoshiro256StarStarEngine.ipp"
+#endif

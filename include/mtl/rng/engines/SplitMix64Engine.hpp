@@ -8,33 +8,34 @@
 
 #include "mtl/Common.hpp"
 
+
 namespace mtl::rng {
 
 class SplitMix64Engine {
 public:
   using result_type = u64;
 
-  SplitMix64Engine(result_type s) noexcept : state_{s} {}
+  SplitMix64Engine(u64 s) noexcept : state_{s} {}
 
-  inline void seed(result_type s) noexcept { state_ = s; }
+  void seed(u64 s) noexcept { state_ = s; }
 
-  inline result_type operator()() noexcept
-  {
-    state_ += 0x9E3779B97F4A7C15;
+  u64 next() noexcept;
 
-    auto temp = state_;
-    temp = (temp ^ (temp >> 30)) * 0xBF58476D1CE4E5B9;
-    temp = (temp ^ (temp >> 27)) * 0x94D049BB133111EB;
-    return (temp ^ (temp >> 31));
-  }
+  void discard(size_t n) noexcept { state_ += n * u64{0x9E3779B97F4A7C15}; }
 
-  inline void discard(size_t n) noexcept { state_ += n * 0x9E3779B97F4A7C15; }
-  
-  constexpr result_type min() noexcept { return std::numeric_limits<result_type>::min(); }
-  constexpr result_type max() noexcept { return std::numeric_limits<result_type>::max(); }
+  u64 operator()() noexcept { return next(); }
+
+  static constexpr u64 min() { return std::numeric_limits<u64>::min(); }
+
+  static constexpr u64 max() { return std::numeric_limits<u64>::max(); }
 
 private:
-  result_type state_;
+  u64 state_;
 };
 
 }  // namespace mtl::rng
+
+
+#if defined(MTL_CONFIG_HEADER_ONLY)
+#  include "mtl/rng/engines/SplitMix64Engine.ipp"
+#endif
