@@ -1,6 +1,7 @@
 ---
 BasedOnStyle: Google
 ColumnLimit: 100
+
 ---
 Language: Cpp
 
@@ -45,6 +46,10 @@ BraceWrapping:
     AfterExternBlock: false
     BeforeCatch: false
     BeforeElse: false
+    IndentBraces: false
+    SplitEmptyFunction: false
+    SplitEmptyRecord: false
+    SplitEmptyNamespace: false
 
 BreakBeforeTernaryOperators: true
 BreakConstructorInitializers: BeforeComma
