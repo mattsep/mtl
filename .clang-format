@@ -8,7 +8,7 @@ Language: Cpp
 AccessModifierOffset: -2
 
 AlignAfterOpenBracket: Align
-AlignConsecutiveMacros: true
+AlignConsecutiveMacros: false
 AlignConsecutiveAssignments: false
 AlignConsecutiveDeclarations: false
 AlignEscapedNewlines: Right
@@ -21,7 +21,7 @@ AllowAllParametersOfDeclarationOnNextLine: false
 AllowShortBlocksOnASingleLine: true
 AllowShortCaseLabelsOnASingleLine: true
 AllowShortFunctionsOnASingleLine: All
-AllowShortIfStatementsOnASingleLine: Always
+AllowShortIfStatementsOnASingleLine: Never
 AllowShortLambdasOnASingleLine: All
 AllowShortLoopsOnASingleLine: true
 
@@ -32,14 +32,13 @@ AlwaysBreakTemplateDeclarations: Yes
 BinPackArguments: true
 BinPackParameters: true
 
-# this might be the same as WebKit?
 BreakBeforeBraces: Custom
 BraceWrapping:
     AfterCaseLabel: false
     AfterClass: false
     AfterControlStatement: false
     AfterEnum: false
-    AfterFunction: true
+    AfterFunction: false
     AfterNamespace: false
     AfterStruct: false
     AfterUnion: false
@@ -87,18 +86,18 @@ IncludeCategories:
       Priority: 2
     - Regex: '^<.*>'        # C++ standard library headers
       Priority: 3
-    - Regex: '^"extern/.*"' # external dependency headers
-      Priority: 4
-    - Regex: '^".*"'        # project headers
+    - Regex: '^"mtl/.*"'    # project headers
       Priority: 5
+    - Regex: '^".*"'        # all other headers (external dependencies, etc)
+      Priority: 4
 IncludeIsMainRegex: '([-_](test|bench|impl))?$'
 
 IndentCaseLabels: false
-IndentPPDirectives: AfterHash
+IndentPPDirectives: None
 IndentWidth: 2
 IndentWrappedFunctionNames: false
 
-MaxEmptyLinesToKeep: 2
+MaxEmptyLinesToKeep: 1
 
 NamespaceIndentation: Inner
 

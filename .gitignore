@@ -1,5 +1,8 @@
 # Other
 build/
+docs/
+
+# VS Code config files
 .vscode/
 
 # Prerequisites

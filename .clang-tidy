@@ -1,1 +1,1 @@
-Checks: '-*,modernize-*,readability-*,performance-*,bugprone-*'
+Checks: '-*,modernize-*,readability-*,performance-*,bugprone-*,mpi-*,clang-analyzer-*'
